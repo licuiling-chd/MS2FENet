@@ -4,15 +4,15 @@ This repository is the implementation of our paper: [Multiscale Spatial-Spectral
 
 If you find this work helpful, please cite our paper:
 
-  @ARTICLE{9786664,
-  author={Ye, Zhen and Li, Cuiling and Liu, Qingxin and Bai, Lin and Fowler, James E.},
-  journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing}, 
-  title={Multiscale Spatial-Spectral Feature Extraction Network for Hyperspectral Image Classification}, 
-  year={2022},
-  volume={15},
-  number={},
-  pages={4640-4652},
-  doi={10.1109/JSTARS.2022.3179446}}
+    @ARTICLE{9786664,
+    author={Ye, Zhen and Li, Cuiling and Liu, Qingxin and Bai, Lin and Fowler, James E.},
+    journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing}, 
+    title={Multiscale Spatial-Spectral Feature Extraction Network for Hyperspectral Image Classification}, 
+    year={2022},
+     volume={15},
+    number={},
+    pages={4640-4652},
+    doi={10.1109/JSTARS.2022.3179446}}
  
  ## Descriptions
  
