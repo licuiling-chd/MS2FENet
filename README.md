@@ -9,7 +9,7 @@ If you find this work helpful, please cite our paper:
     journal={IEEE Journal of Selected Topics in Applied Earth Observations and Remote Sensing}, 
     title={Multiscale Spatial-Spectral Feature Extraction Network for Hyperspectral Image Classification}, 
     year={2022},
-     volume={15},
+    volume={15},
     number={},
     pages={4640-4652},
     doi={10.1109/JSTARS.2022.3179446}}
