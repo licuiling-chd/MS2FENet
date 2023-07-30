@@ -1,7 +1,5 @@
 import torch
 import torch.nn as nn
-from torch.nn import functional as F
-from torchsummary import summary
 
 class_num = 15
 
@@ -47,21 +45,25 @@ class MFC(nn.Module):
             x = torch.cat(xs, dim=1)
         return x
 
-class ms2fenet(nn.Module):
+class MS2FENet(nn.Module):
     def __init__(self):
-        super(ms2fenet, self).__init__()
+        super(MS2FENet, self).__init__()
         self.conv1 = nn.Conv3d(1, 8, (7, 3, 3))
         self.bn1 = nn.BatchNorm3d(8)
         self.pool1 = nn.AvgPool3d((2, 3, 3), stride=2)
+        
         self.conv2 = MFC(8, 24, (5, 3, 3), 4)
         self.bn2 = nn.BatchNorm3d(20)
         self.pool2 = nn.AvgPool3d((2, 3, 3), stride=2)
+        
         self.conv3 = MFC(20, 12, (5, 3, 3), 4)
         self.bn3 = nn.BatchNorm3d(50)
         self.pool3 = nn.AvgPool3d((2, 3, 3), stride=2)
+        
         self.conv4 = MFC(50, 6, (3, 3, 3), 4)
         self.bn4 = nn.BatchNorm3d(128)
         self.pool4 = nn.AdaptiveAvgPool3d((3, 2, 2))
+        
         self.linear = nn.Sequential(
             nn.Linear(1536, class_num),
             nn.LogSoftmax(dim=1)
@@ -69,23 +71,16 @@ class ms2fenet(nn.Module):
 
     def forward(self, x):
         x = F.relu(self.bn1(self.conv1(x)))
+        
         x = F.relu(self.bn2(self.conv2(x)))
         x = self.pool2(x)
+        
         x = F.relu(self.bn3(self.conv3(x)))
         x = self.pool3(x)
+        
         x = F.relu(self.bn4(self.conv4(x)))
         x = self.pool4(x)
+        
         x = x.view(x.size(0), -1)
         x = self.linear(x)
         return x
-
-
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = ms2fenet().to(device)
-summary(model, input_size=(1, 30, 15, 15))
-
-from thop import profile
-model = ms2fenet()
-input = torch.randn(1, 1, 30, 15, 15)
-flops, params = profile(model, inputs=(input, ))
-print(flops/1e6, params)
